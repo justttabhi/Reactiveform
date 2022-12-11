@@ -1,0 +1,119 @@
+<div class="container card col-md-4">
+  <h1>{{title}} Login</h1>
+  <form class="row" [formGroup]="loginForm" (ngSubmit)="userlogin()">
+    <div>
+      <label for="email">Email: </label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your Email">
+      <!-- Events for Email -->
+      <span *ngIf="loginFormControl.email?.errors">
+        <span *ngIf="loginFormControl.email?.errors?.['required']">Required</span>
+        <span *ngIf="loginFormControl.email?.errors?.['email']">Not a valid email</span>
+      </span>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" formControlName="loginPassword" placeholder="Password">
+      <span *ngIf="loginFormControl.loginPassword.errors?.['required']">Required (Min 4 to Max 8 characters)</span>
+      <span *ngIf="loginFormControl.loginPassword.errors?.['minlength']">minlength is 4</span>
+        <span *ngIf="loginFormControl.loginPassword.errors?.['maxlength']">maxlength is 10</span> 
+    </div>
+    <div>
+      <input type="reset" class="btn btn-primary">&nbsp;
+      <input type="submit" class="btn btn-primary" [disabled]="loginForm.invalid"><br>
+    </div>
+  </form>
+</div>
+<!-- <button (click)="userlogin(loginForm.value)">Outside the form</button> -->
+<br>
+<!-- Form 2 Starts: -->
+<div class="container card">
+  <h1>{{title}} Signup</h1>
+  <form class="row" [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="fname" class="form-label">First Name: </label>
+        <input type="text" class="form-control" id="fname" formControlName="fname" placeholder="Enter your first name"
+          required>
+      </div>
+      <div class="col-md-4">
+        <label for="fname" class="form-label">Last Name: </label>
+        <input type="text" class="form-control" id="lname" formControlName="lname" placeholder="Enter your last name"
+          required>
+        <span *ngIf="this.userForm.get('lname')?.errors">
+          <span *ngIf="this.userForm.get('lname')?.errors?.['required']">required</span>
+          <span *ngIf="this.userForm.get('lname')?.errors?.['pattern']">Please! enter valid last name</span>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <span class="form-label">Gender:</span><br>
+      <div class="col-md-2">
+        <label for="male">Male</label>&nbsp;
+        <input type="radio" id="male" formControlName="gender" value="Male">&nbsp;
+      </div>
+      <div class="col-md-2">
+        <label for="female">Female</label>&nbsp;
+        <input type="radio" id="female" formControlName="gender" value="Female">
+        <span *ngIf="this.userForm.get('gender')?.errors && this.userForm.get('gender')?.touched">
+          <span *ngIf="this.userForm.get('gender')?.errors?.['required']">required</span>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">User Name: </label>
+        <input formControlName="username" class="form-control">
+        <div *ngIf="username?.errors && isValidFormSubmitted && username?.touched">
+          <div *ngIf="username?.errors?.['required']">
+            User name required.
+          </div>
+          <div *ngIf="username?.errors?.['pattern']">
+            Minimum 8 and Maximum 15 characters with '_' and '-'
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Password: </label>
+        <input type="password" formControlName="password" class="form-control">
+        <div *ngIf="password?.errors && isValidFormSubmitted">
+          <div *ngIf="password?.errors?.['required']">
+            Password required.
+          </div>
+          <div *ngIf="password?.errors?.['pattern']">
+            Minimum 8 characters, at least one letter, one number and at least one special character
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">Mobile Number: </label>
+        <input type="text" formControlName="mobileNumber" class="form-control">
+        <div *ngIf="mobileNumber?.errors && isValidFormSubmitted">
+          <div *ngIf="mobileNumber?.errors?.['pattern']">
+            Mobile number not valid. Add +91 before not compulsory
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Email: </label>
+        <input formControlName="email" class="form-control">
+        <div *ngIf="email?.errors && isValidFormSubmitted">
+          <div *ngIf="email?.errors?.['pattern']">
+            Email not valid.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="des">Bio:</label>
+        <textarea class="form-control" formControlName="bio" id="des" cols="30" rows="10"
+          placeholder="Your Bio"></textarea>
+      </div>
+    </div>
+    <div colspan="2" class="row">
+      <button class="btn btn-primary col-md-2">Submit</button>
+    </div>
+  </form>
+</div>
